@@ -65,10 +65,11 @@ var pickedImage: UIImage!
 
 ## Milestone 4: Tag a Location
 
-Most of LocationsViewController is already implemented for you. There are 3 remaining pieces you'll need to implement:
+Most of `LocationsViewController` is already implemented for you. There are 3
+remaining pieces you'll need to implement:
 
-Create a LocationsViewControllerDelegate so that LocationsViewController can communicate back to PhotoMapViewController the location that was selected.
-
+1. Create a `LocationsViewControllerDelegate` so that `LocationsViewController` can communicate back to `PhotoMapViewController` the location that was selected.
+```
 // Protocol definition - top of LocationsViewController.swift
 protocol LocationsViewControllerDelegate : class {
    func locationsPickedLocation(controller: LocationsViewController, latitude: NSNumber, longitude: NSNumber)
@@ -79,39 +80,73 @@ class LocationsViewController: … {
    weak var delegate : LocationsViewControllerDelegate!
    ...
 }   
-Set the delegate from the prepare(for:​sender:​) AKA(prepareForSegue) method of PhotoMapViewController.
+```
 
-NOTE: The starter project may have the older syntax of the prepareForSegue method. Use auto complete to create and override the prepare(for:​sender:​) method.
+2. Set the delegate from the **prepare(for:​sender:​)**
+   AKA(prepareForSegue) method of `PhotoMapViewController`.
+    - NOTE: The starter project may have the older syntax of the
+      prepareForSegue method. Use auto complete to create and override the
+      prepare(for:​sender:​) method.
+```
 override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
    let locationsViewController = segue.destination as! LocationsViewController
    locationsViewController.delegate = self
 }
-After setting the delegate, you will get a compiler error saying 
-In your PhotoMapViewController class declaration, declare that you will implement the required methods to conform to the LocationsViewControllerDelegate.
+```
 
+- After setting the delegate, you will get a compiler error saying 
+![Image](http://i.imgur.com/6qLP2xZ.png)
+
+* In your `PhotoMapViewController` class declaration, declare that you will implement the required methods to conform to the `LocationsViewControllerDelegate`.
+```
 class PhotoMapViewController: UIViewController, ... LocationsViewControllerDelegate
-In the didSelectRowAtIndexPath inside LocationsViewController call the locationsPickedLocation delegate method and pass in the latitude and longitude of the location the user selects as arguments.
+```
 
+1. In the
+[didSelectRowAtIndexPath](https://developer.apple.com/reference/uikit/uitableviewdelegate/1614916-tableview)
+inside `LocationsViewController` call the `locationsPickedLocation` delegate
+method and pass in the latitude and longitude of the location the user selects
+as arguments.
+```
 delegate.locationsPickedLocation(controller: self, latitude: lat, longitude: lng)
 
 // Return to the PhotoMapViewController
 navigationController?.popViewController(animated: true)
-Milestone 5: Drop a Pin on the map
+```
 
+## Milestone 5: Drop a Pin on the map
 
-Add a pin to the map (We won't be actually using our image yet)
-In the PhotoMapViewController, inside the locationsPickedLocation(controller:latitude:longitude:) method, Add a pin to the map.
-You can set the title to the longitude using annotation.title = String(describing: latitude)
-Notice how we call the addAnnotation method on our mapView instance:
-NOTE: The addAnnotation method expects an MKAnnotation (which is a protocol). If all you need is a point on a map, you can use MKPointAnnotation (which is a concrete implement of MKAnnotation).
-Milestone 6: Add the photo you chose in the annotation view
+![Image](http://i.imgur.com/Ih8wIo9.gif)
 
+1. Add a pin to the map (We won't be actually using our image yet)
+    - In the PhotoMapViewController, inside the
+      locationsPickedLocation(controller:latitude:longitude:) method, [Add a
+      pin to the
+      map](http://guides.codepath.com/ios/Using-MapKit#drop-pins-at-locations)
+        - You can set the title to the longitude using `annotation.title =
+          String(describing: latitude)`
+        - Notice how we call the
+          [addAnnotation](https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKMapView_Class/index.html#//apple_ref/occ/instm/MKMapView/addAnnotation:)
+          method on our `mapView` instance:
+        - NOTE: The addAnnotation method expects an
+          [MKAnnotation](https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKAnnotation_Protocol/index.html#//apple_ref/swift/intf/c:objc(pl)MKAnnotation)
+          (which is a protocol). If all you need is a point on a map, you can
+          use MKPointAnnotation (which is a concrete implement of
+          MKAnnotation).
 
-add a custom image to the annotation view
+## Milestone 6: Add the photo you chose in the annotation view
 
-Set the PhotoMapViewController as MapView's delegate
-Add MKMapViewDelegate to your PhotoMapViewController's class declaration.
-Implement the mapView:viewForAnnotation delegate method to provide an annotation view. The code below will add your pickedImage to the annotation view.
+![Image](http://i.imgur.com/jsPJ3er.gif)
+1. [add a custom image to the annotation
+   view](http://guides.codepath.com/ios/Using-MapKit#use-custom-images-for-map-annotations)
+
+    1. Set the PhotoMapViewController as MapView's delegate
+    2. Add `MKMapViewDelegate` to your PhotoMapViewController's class declaration.
+    3. Implement the
+       [mapView:viewForAnnotation](https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKMapView_Class/index.html#//apple_ref/occ/instm/MKMapView/viewForAnnotation:)
+       delegate method to provide an annotation view. The code below will add
+       your `pickedImage` to the annotation view.
+```
 func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     let reuseID = "myAnnotationView"
 
@@ -128,12 +163,17 @@ func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnota
 
     return annotationView
 }
-Bonus 1: Implement a Custom MKAnnotation
-Bonus 1 gif
+```
 
-If we want a preview of the photo in the annotation view (and not just the camera icon), we need a way to keep track of which annotation corresponds to which photo.
-One way to do this, is to create a class that implements the MKAnnotation protocol to keep track of the photo:
+## Bonus 1: Implement a Custom MKAnnotation
+![Image](http://i.imgur.com/FEgTygn.gif)
 
+- If we want a preview of the photo in the annotation view (and not just the
+  camera icon), we need a way to keep track of which annotation corresponds to
+  which photo.
+- One way to do this, is to create a class that implements the MKAnnotation
+  protocol to keep track of the photo:
+```
 class PhotoAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0)
     var photo: UIImage!
@@ -142,8 +182,11 @@ class PhotoAnnotation: NSObject, MKAnnotation {
         return "\(coordinate.latitude)"
     }
 }
-With the PhotoAnnotation, you can now set the leftCalloutAccessoryView image to the photo. Use the following code to resize the image beforehand:
-
+```
+- With the PhotoAnnotation, you can now set the
+  [leftCalloutAccessoryView](https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKAnnotationView_Class/index.html#//apple_ref/occ/instp/MKAnnotationView/leftCalloutAccessoryView)
+  image to the `photo`. Use the following code to resize the image beforehand:
+```
 var resizeRenderImageView = UIImageView(frame: CGRectMake(0, 0, 45, 45))
 resizeRenderImageView.layer.borderColor = UIColor.whiteColor().CGColor
 resizeRenderImageView.layer.borderWidth = 3.0
@@ -154,7 +197,9 @@ UIGraphicsBeginImageContext(resizeRenderImageView.frame.size)
 resizeRenderImageView.layer.renderInContext(UIGraphicsGetCurrentContext())
 var thumbnail = UIGraphicsGetImageFromCurrentImageContext()
 UIGraphicsEndImageContext()
-Bonus 2: See Fullscreen Picture
+```
+
+## Bonus 2: See Fullscreen Picture
 Bonus 2 gif
 
 Tapping on an annotation's callout should push a view controller showing the full-size image.

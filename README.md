@@ -1,5 +1,10 @@
 ## Starter Project for Photo Map Exercise (Swift)
+
+### Should be:
 ![Image](http://i.imgur.com/WIwqNtn.gif)
+
+### My walkthrough:
+![Image](https://github.com/sammanthp007/Photo-Map/blob/master/walkthrough.gif)
 
 ### Resources
 - [Vimeo Video](https://vimeo.com/156644693/5fb0a0c959)

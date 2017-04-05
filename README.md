@@ -10,21 +10,23 @@
 - Placeholders for `PhotoMapViewController` and `FullImageViewController`
 
 # Photo Map
-Due Date: March 23rd at 11:59pm
 Today we'll be building a photo map. It will allow the user to take a photo, tag it with a location, and then see a map with all the previously tagged photos.
 
-Photo Map Gif
+## Milestone 1: Setup
+- Download the [starter
+  project](https://github.com/codepath/ios_photo_map/archive/master.zip). The
+  starter project contains the following view controllers:
+    - `PhotoMapViewController` => This is where you'll add the map in Milestone
+      #2.
+    - `LocationsViewController` => This is already implemented and allows you
+      to search Foursquare for a location that you want to drop a photo.
+    - `FullImageViewController` => This is where you'll add a fullscreen image
+      in **Bonus #2.**
+- Fill in the following constants in `LocationsViewController` to connect to the Foursquare API:
+    - `CLIENT_ID` = QA1L0Z0ZNA2QVEEDHFPQWK0I5F1DE3GPLSNW4BZEBGJXUCFL
+    - `CLIENT_SECRET` = W2AOE1TYC4MHK5SZYOUGX0J3LVRALMPB4CXT3ZH21ZCPUMCU
 
-Milestone 1: Setup
-Download the starter project. The starter project contains the following view controllers:
-PhotoMapViewController => This is where you'll add the map in Milestone #2.
-LocationsViewController => This is already implemented and allows you to search Foursquare for a location that you want to drop a photo.
-FullImageViewController => This is where you'll add a fullscreen image in Bonus #2.
-Fill in the following constants in LocationsViewController to connect to the Foursquare API:
-CLIENT_ID = QA1L0Z0ZNA2QVEEDHFPQWK0I5F1DE3GPLSNW4BZEBGJXUCFL
-CLIENT_SECRET = W2AOE1TYC4MHK5SZYOUGX0J3LVRALMPB4CXT3ZH21ZCPUMCU
-Milestone 2: Create the Map View
-Milestone 2 gif
+## Milestone 2: Create the Map View
 
 Implement the PhotoMapViewController to display a map of San Francisco with a camera button overlay.
 

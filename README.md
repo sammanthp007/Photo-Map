@@ -200,14 +200,22 @@ UIGraphicsEndImageContext()
 ```
 
 ## Bonus 2: See Fullscreen Picture
-Bonus 2 gif
+![Image](http://i.imgur.com/mbfp9PL.gif)
 
-Tapping on an annotation's callout should push a view controller showing the full-size image.
-Add a button to the rightCalloutAccessoryView of type UIButtonType.DetailDisclosure
-Implement the delegate method that gets called when a user taps on the accessory view to launch the FullImageViewController using the segue identifier fullImageSegue.
-Bonus 3: Replace the Pin with an Image
-Bonus 3 gif
+- Tapping on an annotation's callout should push a view controller showing the
+  full-size image.
+- Add a button to the rightCalloutAccessoryView of type
+  `UIButtonType.DetailDisclosure`
+- Implement the [delegate
+  method](https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKMapViewDelegate_Protocol/index.html#//apple_ref/occ/intfm/MKMapViewDelegate/mapView:annotationView:calloutAccessoryControlTapped:)
+  that gets called when a user taps on the accessory view to [launch the
+  FullImageViewController](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewController_Class/#//apple_ref/occ/instm/UIViewController/performSegueWithIdentifier:sender:)
+  using the segue identifier `fullImageSegue`.
 
-The annotation view should use a custom image to replace the default red pin.
-Set MKAnnotationView's image property to the same image in Bonus 2. annotationView.image = thumbnail
-You will need to resize your photo to thumbnail size.    
+## Bonus 3: Replace the Pin with an Image
+![Image](http://i.imgur.com/WIwqNtn.gif)
+
+- The annotation view should use a custom image to replace the default red pin.
+- Set MKAnnotationView's image property to the same image in Bonus 2.
+  `annotationView.image = thumbnail`
+- You will need to resize your photo to thumbnail size.    

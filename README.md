@@ -28,26 +28,42 @@ Today we'll be building a photo map. It will allow the user to take a photo, tag
 
 ## Milestone 2: Create the Map View
 
-Implement the PhotoMapViewController to display a map of San Francisco with a camera button overlay.
+![Image](http://i.imgur.com/tro9qJv.gif)
 
-Add the MapKit framework to the Build Phases.
-Then import MapKit into PhotoMapViewController.
-Add the MKMapView and the UIButton for displaying the camera (asset included in the starter project).
-Create an outlet for the map view.
-Set initial visible region of the map view to San Francisco:
-Milestone 3: Take a Photo
-Create a property in your PhotoMapViewController to store your picked image
+- Implement the PhotoMapViewController to display a map of San Francisco with a
+  camera button overlay.
+    - [Add the MapKit
+      framework](http://guides.codepath.com/ios/Project-Frameworks#adding-frameworks-to-project)
+      to the Build Phases.
+    - Then import `MapKit` into `PhotoMapViewController`.
+    - Add the MKMapView and the UIButton for displaying the camera (asset
+      included in the starter project).
+    - Create an outlet for the map view.
+    - [Set initial
+      visible](http://guides.codepath.com/ios/Using-MapKit#centering-a-mkmapview-at-a-point-with-a-displayed-region)
+      region of the map view to San Francisco:
 
+
+## Milestone 3: Take a Photo
+1. Create a property in your PhotoMapViewController to store your picked image
+```
 var pickedImage: UIImage!
-Pressing the camera button should modally present the camera.
+```
+2. Pressing the camera button should modally [present the
+   camera](http://guides.codepath.com/ios/Camera-Quickstart).
+    - NOTE: The simulator does not support using the actual camera. Check that
+      the source type is indeed available by using
+      `UIImagePickerController.isSourceTypeAvailable(.camera)` which will
+      return true if the device supports the camera. [See the note here for an
+      example](http://guides.codepath.com/ios/Camera-Quickstart#step-2-instantiate-a-uiimagepickercontroller)
+3. When the user has chosen an image, in your [delegate
+   method](http://guides.codepath.com/ios/Camera-Quickstart#step-3-implement-the-delegate-method)
+   you'll want to:
+    1. Assign the picked image to the pickedImage property
+    2. Dismiss the modal camera view controller you previously presented. (This time we will expand the completion closure instead of setting it to nil in order to perform a segue to the LocationsViewController in the next step.)
+    3. [Launch the LocationsViewController](http://guides.codepath.com/ios/Using-Modal-Transitions#triggering-the-transition-manually) in the completion block of dismissing the camera modal using the segue identifier `tagSegue`.
 
-NOTE: The simulator does not support using the actual camera. Check that the source type is indeed available by using UIImagePickerController.isSourceTypeAvailable(.camera) which will return true if the device supports the camera. See the note here for an example.
-When the user has chosen an image, in your delegate method you'll want to:
-
-Assign the picked image to the pickedImage property
-Dismiss the modal camera view controller you previously presented. (This time we will expand the completion closure instead of setting it to nil in order to perform a segue to the LocationsViewController in the next step.)
-Launch the LocationsViewController in the completion block of dismissing the camera modal using the segue identifier tagSegue.
-Milestone 4: Tag a Location
+## Milestone 4: Tag a Location
 
 Most of LocationsViewController is already implemented for you. There are 3 remaining pieces you'll need to implement:
 
